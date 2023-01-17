@@ -1,0 +1,8 @@
+/.quarto/
+.Rproj.user
+
+/.luarc.json
+_site/
+_book/
+_publish.yml
+.ipynb_checkpoints/
