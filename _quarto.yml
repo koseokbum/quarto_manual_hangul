@@ -1,0 +1,54 @@
+project:
+  type: book
+title-block-banner: true
+book:
+  title: "Using Quarto"
+  subtitle: "콰르토: 강력하고 효율적인, R/Pyhthon을 활용한 데이터 기반 기술 문헌 작성 도구"
+  reader-mode: true
+  author: 
+    - name: "고석범 (신경과 전문의, 대표원장)"
+      affiliations:
+        - name: "성심요양병원(경기도 광주시)"
+  date: today
+  date-format: "YYYY년 M월 D일"
+  chapters:
+    - index.qmd
+    - part: concept.qmd
+      chapters:
+        - computational_notebook.qmd
+        - setting.qmd
+      #  - selection.qmd
+        
+    - part: quarto.qmd
+      chapters:
+        - quarto_getting_started.qmd
+        - about_yaml.qmd
+        - code_block.qmd
+        - pandoc.qmd
+        - content_figure.qmd
+        - content_table.qmd
+        - cross_ref.qmd
+    - part: engine.qmd
+      chapters:
+        - knitr_engine.qmd
+        - jupyter_engine.qmd
+    - part: format_part.qmd
+      chapters:
+        - html_format.qmd
+        - pdf_format.qmd
+
+bibliography: references.bib
+format:
+  html:
+    code-copy: true
+    df-print: paged
+    theme:
+      light: united
+      dark: darkly
+    number-sections: true
+    anchor-sections: true
+
+
+  
+
+
