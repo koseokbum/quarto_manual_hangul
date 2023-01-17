@@ -1,0 +1,631 @@
+# 컴퓨터 환경 설정 {#sec-ComputerConfiguration}
+
+이 장에서는 콰르토를 사용하기 위해 컴퓨터 환경을 설정하는 방법을 설명한다. 아마 이 글을 읽는 분들은 이 가운데 여러 도구들은 이미 설치하여 사용하고 있을 것이다.
+
+- R 언어 설치
+- R 마크다운
+- 파이썬 언어 설치
+- 주피터 노트북과 주피터랩
+- Visual Studio Code(VS Code) 텍스트 에디터
+- 콰르토(Quarto)
+
+먼저 R 언어 환경을 설치해 보자.
+
+## R 언어 설치 {#sec-r-settings}
+
+윈도우에서 R을 설치할 때 가장 큰 문제는 컴퓨터의 이름이 한글로 되어 있는 경우에 발생한다. R 언어는 RStudio 통합개발환경에서 주로 사용되는데 RStudio가 컴퓨터 이름이 한글로 되어 있는 경우, 경로 인식이 잘 안 되어 실행하지 못할 수 있다. 이런 경우 한글로 된 이름을 영문으로 바꾸면 되겠지만, 이 과정이 쉽지 않다. 꼭 필요한 경우에는 전문가나 웹 검색을 해서 해결하기 바란다. 이 경우 그냥 새로운 영문계정을 만들어 사용할 것을 권한다.
+
+R 설치는 다음과 같이 한다.
+
+[![R 로고(클릭하여 CRAN으로 이동)](images/R_logo.png){#fig-r-logo  fig-align="center" width="200" }](https://cran.r-project.org)
+
+1.  베이스 R 설치 
+
+    "CRAN" 단어로 검색하여([The Comprehensive R Archive Network](https://cran.r-project.org)), 해당 사이트로 가서 컴퓨터 시스템에 맞는 R을 설치한다. 설치는 디폴트 설정을 그대로 따라 가면 된다.
+
+    -   윈도우인 경우 "base"라고 되어 있는 링크를 사용하여 설치한다. 설치되고 나면 `R i386`, `R x64`라고 하는 아이콘이 모두 설치되는데, 최근 컴퓨터는 대부분 64bit 체계일 것이므로 `R x64`를 사용한다.
+
+2.  빌드 툴 설치
+
+    베이스 R을 설치한 다음, 원도우인 경우 "CRAN" 사이트에서 "Rtools"라는 링크에서 R 빌드 툴을 다운로드하여 설치한다. 맥오에스인 경우에는 앱스토어에서 XCode 내려받아 설치한다. 이 도구들은 패키지를 빌드(build)하는 등에 사용되는데, 패키지를 개발하지 않더라고 패키지 업데이트 등 필요한 경우가 있다.
+
+    ![크랜 사이트에서 윈도우용 R 설치(base, Rtools을 차례로 설치한다.)](images/cran.png){#fig-carn fig-align="center" width="600"}
+
+3.  경로 잡기
+
+    윈도우인 경우 R 바이너리(실행파일, `R.exe`)에 대한 경로(Path)를 추가한다. 만약 Windows 명령 프롬프트(`cmd.exe`)에서 R이 설치된 디렉터리로 반드시 찾아가 실행하지 않더라고, 어디서든 R을 실행하려면 설치한 R 바이너리(실행파일)에 대한 경로를 `PATH` 환경 변수에 추가할 필요가 있다. 윈도우 10인 경우 `원도우 키 + X` 또는 검색 바에서 "시스템"을 입력하여 시스템 정보 창을 연다. 이 창에서 오른쪽에 있는 "고급 시스템 설정 \>\> 환경변수 \>\> Path"을 선택하고 "편집" 버튼을 누르고, 환경 변수 편집 창에서 "찾아보기" 버튼을 클릭하여 R 바이너리가 있는 폴더를 찾아서 등록하면 된다. 보통은 `C:\Program Files\R\R-4.X.X\bin\x64`(X는 버전에 따라 다름) 폴더를 선택한다. 맥오에스는 R이 설치될 때 자동으로 경로를 추가되기 때문에 별도의 과정이 필요없다.
+
+    ![Path를 선택하고, 편집 버튼을 클릭한 다음 R 바이너리가 들어 있는 디렉터리를 선택하여 등록한다.](images/win_env.png){#fig-win-env fig-align="center" width="70%"}
+
+    윈도우 커맨드라인 또는 맥오에스 터미널에서 R을 실행할 때는 `R`을 입력하고 엔터키를 친다.
+
+### R 업데이트
+
+R 프로그래밍 언어는 대략 1년에 2회 정도 업데이트된다. 새로 업데이트하는 경우 CRAN 사이트에 가서 새 버전을 다시 설치할 수도 있겠지만, 그렇게 하는 경우에는 기존에 사용하던 패키지들을 다시 설치해야 할 수도 있다.
+
+-   윈도우 업데이트: `installr` 패키지를 사용하는 것이 편리하다. 사용법은 <https://talgalili.github.io/installr/> 사이트를 참고한다. 윈도우에서 R을 업데이트하고 난 다음에는 이전 절에서 설명한 환경 변수 `PATH` 설정 방법을 사용하여, 최신 R 바이너리에 대한 위치를 찾아서 경로(Path)를 수정한다.
+
+-   맥오에스 업데이트: `updateR` 패키지를 사용한다. 사용법은 <https://github.com/AndreaCirilloAC/updateR> 사이트를 참고한다. 참고로 이 패키지는 CRAN에 등록된 패키지는 아니다.
+
+### RStudio 통합개발환경 설치
+
+R 언어를 설치하고 나서 R 언어 사용자들이 가장 많이 사용하고 있는 RStudio 통합개발환경을 설치한다."RStudio"라고 입력하고 검색하면 쉽게 검색된다. 
+
+[![RStudio 로고(클릭하여 이동)](images/RStudio-Logo-Flat.png){#fig-RStudio-Logo-Flat width="200" fig-align="center"}](https://posit.co/download/rstudio-desktop/)
+
+RStudio 통합개발환경에는 콰르토를 사용하기 편리하도록 여러 가지 기능들이 메뉴, 버튼 등 GUI로 마련되어 있어 편리하다.
+
+
+## 파이썬 설치
+
+하나의 컴퓨터에 여러 가지 방법으로, 여러 버전의 파이썬을 설치할 수 있다. 파이썬은 범용 언어이기 때문에 여러 용도로 활용되어 라이브러리도 상당히 많다. 그렇기 때문에 어떤 작업 프로젝트[^settings-3]을 수행할 때는 해당 프로젝트를 위한 "가상 환경"을 만들어 사용하는 것이 권고된다.  이 가상 환경을 만드는 방법도 다양하다. 그래서 한 컴퓨터에 여러 가지 파이썬 바이너리, 가상 환경 등이 있을 때 이것을 관리하고 필요한 경우 특정 파이썬 바이너리를 제대로 선택하는 방법을 아는 것이 중요하다. 처음 파이썬에 발을 들여 놓은 독자들이라면 어떤 방법을 선택하는 것이 좋을지 헷갈릴 수 있다.
+
+[^settings-3]: 특정 작업과 관련된 코드, 이미지 등 모든 리소스를 모아 놓은 폴더
+
+이런 점을 고려하여 여기서는  (1) 파이썬 표준 배포판 설치 방법과 더불어 (2) 데이터 과학에서 많이 사용되는 아나콘다 파이썬 배포판을 설치하고 실행 환경을 구축하는 방법에 한정하여 설명한다. 하나의 개념을 확실히 하면 나머지 도구들을 사용할 때도 헷갈리는 것을 피할 수 있다.
+
+
+::: {#fig-two-py layout-ncol="2"}
+
+
+![파이썬 표준 설치](images/py_standard.png){width="350"}
+
+![아나콘다 파이썬 설치](images/py_anaconda.png){width="350"}
+
+파이썬은 여러 가지 방법으로 설치할 수 있다.
+:::
+
+### 윈도우에서 파이썬 설치: 표준 및 아나콘다 파이썬
+
+#### 표준 설치법
+
+원도우에서 <https://www.python.org> 사이트를 방문하여 표준 파이썬을 다운로드하여 설치한다. 다운로드하고 설치하는 데 큰 문제는 없을 것이다. 디폴트로 따라 간다. 설치가 되면 아래 그림과 같이 윈도우 시작 키(윈도우 11을 사용하여 설명한다)를 사용하여 앱이 설치된 것을 확인한다.
+
+[![파이썬 로고(클릭하여 파이썬 사이트로 이동)](images/python_logo.png){#fig-python-logo width="200"}](https://www.python.org)
+
+
+![파이썬 표준 배포판을 설치한 상태](images/win_py.png){#fig-win_py_std fig-align="center" width="65%"}
+
+여기서 `Python 3.11 (64-bit)`라고 된 아이콘을 클릭하면 파이썬 레플(REPL)이 실행된다. 그런데 실제로 파이썬을 사용할 때 이것을 사용하는 일을 그렇게 많지 않을 것이다. 중요한 것은 커맨드라인(cmd.exe)에서 실행되는 `py`라는 이름의 파이썬 론처 프로그램이다. 이 책에서는 윈도우 커맨드라인을 윈도우 셸, `cmd.exe`, "명령 프롬프트" 등의 용어를 사용하는 데 다 같은 의미이다. 명령 프롬프트를 열어서 파이썬을 실행해 보자. `py`라고 하는 명령을 주고 엔터키를 치면 된다.
+
+![py 론처를 사용하여 파이썬 실행](images/prompt_py.png){#fig-prompt-py fig-align="center" width="80%"}
+
+이 `py`라고 하는 명령은 파이썬이 설치될 때 기존 윈도우 시스템 경로(PATH)에 들어가기 때문에 추가 작업을 하지 않아도 바로 사용가능한 상태가 된다.
+
+#### 아나콘다 파이썬 설치 
+
+아나콘다는 데이터 과학용 파이썬으로 가장 많이 사용되는 파이썬 배포판이다. 데이터 과학에서 필요한 파이썬 패키지들은 바탕이 되는 파이썬이 나오고 나서 개발되기 때문에, 앞에서 설명한 표준 파이썬보다 버전이 낮은 경우가 많다. 그렇지만 관련된 작업을 하기 위한 패키지 버전들과 보조를 맞춰 출시되기 때문에 안정적으로 사용할 수 있다.  
+
+[아나콘다](https://www.anaconda.com) 사이트로 가서 시스템에 맞는 아나콘다 파이썬을 설치한다. 설치는 디폴트 설정을 따르면 되고, 중간에 경로(PATH)를 추가할지 묻는데 추가하지 않아도 문제 없다.
+
+[![아나콘다 파이썬 로고(클릭해서 이동)](images/anaconda_python_logo.png){#fig-anaconda-python-logo}](https://www.anaconda.com)
+
+설치한 앱을 찾아보면 @fig-win_anaconda 와 같이 되어 있을 것이다.
+
+![아나콘다가 설치된 이후 모습](images/win_anaconda.png){#fig-win_anaconda fig-align="center" width="65%"}
+
+여기서 주로 설명할 것은 **Anaconda Prompt(anaconda3)**되어 있는 것이다. 이것을 클릭하면 새로운 명령 프롬프트가 실행된다.
+
+``` .bash
+(base) C:\Users\koseokbum>
+```
+
+잘 보면 일반 명령 프롬프트와 다르게 앞에 `(base)`라고 되어 있다. 아나콘다 프롬프트를 사용하는 경우에는 명령 프롬프트에 아나콘다 파이썬을 사용할 수 있는 경로(PATH)가 추가되고, `base`라고 하는 콘다(conda) 디폴트 가상 환경도 활성화되었음을 의미한다.
+
+물론 여기서도 파이썬 표준 설치와 함께 설치된 `py`라는 명령을 사용할 수 있다. 그런데 `py`라는 명령으로 실행되는 파이썬과 `python`이라는 명령으로 실행되는 파이썬은 다르다. `py`는 표준 배포판에 포함된 파이썬을 실행하고, 뒤의 `python` 명령은 아나콘다 `base` 가상 환경에 있는 파이썬을 실행시킨다. 정확히 어떤 파이썬 바이너리를 실행시킬지 하는 문제는 어떤 도구를 어떻게 사용할지와 연관되어 있어 뒤에서 더 자세히 다루고자 한다. 
+
+
+#### 윈도우 명령 프롬프트의 사용
+
+앞의 과정을 따라서 파이썬 표준 배포판과 아나콘다를 설치했다고 가정해 보자. 이 상태를 정리해 보면 다음과 같다. 필요에 따라 원하는 방법을 선택하면 된다.
+
+- 일반적인 명령 프롬프트를 사용하는 경우 `py`라는 파이썬 론처를 사용하여 표준 배포판에 있는 파이썬을 실행할 수 있다.
+
+- 아나콘다 프롬프트를 사용하는 경우는 `py`라는 명령으로 표준 배포판 파이썬을 실행할 수 있고, 'python' 명령으로 아나콘다 `base` 배포판에 있는 파이썬을 실행시킬 수 있다. 
+
+뒤에서 VS Code를 사용하는 방법을 소개할텐데 VS Code에서는 바이너리를 선택하는 기능이 내장되어 있어 손쉽게 원하는 바이너리를 고를 수 있게 되어 있다.
+
+참고로 일반 명령 프롬프트로 들어가서 아나콘다 파이썬을 활성화 시킬 수도 있다. 명령 프롬프트에서 다음과 같은 명령을 실행한다.
+
+``` .bash
+> conda init cmd.exe
+```
+
+그런 다음 다음 명령을 실행하면 `base` 콘다 가상 환경이 활성된다. 
+
+``` .bash
+> conda activate
+```
+
+`conda init cmd.exe` 명령은 한번 실행하고 나면 다시 되돌리지 않는한 효과가 유지되기 때문에, 다음부터는 `conda activate`라는 명령만 실행하면 된다.
+
+만약 예전과 같은 상태로 되돌리고 싶은 경우에는 명령 프롬프트에서 `conda init --reverse cmd.exe`라는 명령을 실행시킨다.
+
+### 맥오에스 시스템에서 파이썬 설치
+
+맥오에스는 자체 시스템에 파이썬이 설치되어 있다. 그런데 이것은 맥오에스 시스템을 위한 것으로 이것을 어떤 방법으로 삭제하면 맥오에스 시스템이 돌아가지 않는다. 그래서 이것은 절대 건드리지 않는 것이 좋다. 맥오에스에 표준 파이썬, 아나콘다 파이썬을 설치하는 방법은 윈도우와 다르지 않다.
+
+## 가상 환경과 콘다 가상 환경 {#sec-conda-virtual-environment}
+
+(R과 달리) 파이썬을 사용할 때는 적극적으로 가상 환경을 만들어 사용하게 된다. 가상 환경(virtual environment)은 시스템과 주변에 영향을 받지 않는 독립적인 실행환경을 말한다. 파이썬은 범용 언어로 사용되는 패키지들이 많아 패키지간의 버전 등 의존성 관리가 중요해진다.
+
+파이썬 가상 환경은 독립적인 파이썬 바이너리(실행 파일)과 가상 환경에 필요에 적합한 패키지들의 모임을 통해 서로 영향을 주지 않는 **독립적인 실행환경**을 제공하는 도구이다. 같은 파이썬 패키지라고 할지라도 `A`라는 가상 환경에 쓰이는 버전과 `B`라는 가상 환경에 쓰이는 버전이 다를 수 있다.
+
+![파이썬 가상 환경은 독립적 실행환경을 제공한다.](images/virtual_env.png){#fig-virtual-env fig-align="center" width="65%"}
+
+### 콘다 가상 환경 
+
+처음 온 파이썬 사용자라면 왜 표준 파이썬 이외에 아나콘다 파이썬을 설치하는지 의문을 가질 수도 있다. 가장 큰 이유는 파이썬 가상 환경과 관련되어 있다. 아나콘다는 가상 환경을 만들고, 이 가상 환경에 쓰이는 패키지들의 의존성을 자동으로 관리해 주기 때문에, 사용자는 이런 일에 신경쓰지 않고 자신의 작업에 몰입할 수 있다. 
+
+아나콘다 파이썬의 대부분의 기능은 설치될 때 함께 설치되는 `conda`라는 패키지 관리자를 통해서 이뤄진다. `conda` 명령으로 가상 환경을 만들고, 이 가상 환경을 활성화하고, 여기에 필요한 패키지를 설치하고 업데이트 등 필요한 관리를 할 수 있다.
+
+[![콘다(클릭하여 콘다 문서로 이동)](images/conda_logo.png){#fig-conda-logo width="300"}](https://docs.conda.io/en/latest/)
+
+
+먼저 `conda`를 사용하여 가상 환경을 만들어 보자. 아래 코드에서 `$`는 커맨드라인 프롬프트로 이것은 빼고 입력한다. 아래처럼 기본은 `conda create` 명령을 사용하여 `--name` 또는 `-n`이라는 옵션 다음에 가상 환경 이름을 지정한다. 여기서는 `my_first`라고 해 보았다. 다음은 `python=3.10`으로 사용할 파이썬 버전을 지정한다. 주의할 점은 커맨드라인에서 `=` 앞, 뒤로 빈칸이 있으면 안 된다. 명령을 실행하고 `Proceed ([y]/n)?`라는 질문을 물어 오는데 `y`라고 입력한다.
+
+``` .bash
+$ conda create --name my_fist python=3.10
+```
+
+추가로 가상 환경을 하나 더 만들어 보자.
+
+``` .bash
+$ conda create --name my_second python=3.9
+```
+
+이제 컴퓨터에 설치되어 있는 콘다 가상 환경 리스트를 보기 위해서 `conda env list` 또는 `conda info --envs`라는 명령을 사용한다. 다음은 윈도우 명령 프롬프트에서 실행해 예이다. 아나콘다가 설치되고 `conda`가 사용할 수 있는 상태가 되었을 때 디폴트로 `base` 라는 가상 환경이 만들어 진다. 이것과 더불어 추가로 2개의 가상 환경이 만들어졌다. 중간의 별표(`*`)는 현재 활성화된 가상 환경을 가리킨다. 그리고 가상 환경이 설치된 경로도 보여준다.
+
+``` .bash
+C:\Users\user>conda env list
+# conda environments:
+#
+base                  *  C:\Users\user\anaconda3
+my_first                 C:\Users\user\anaconda3\envs\my_first
+my_second                C:\Users\user\anaconda3\envs\my_second
+```
+
+만든 가상 환경을 사용하고자 한다면 먼저 해당 가상 환경을 활성화시킨다. `my_first`를 활성화시키자. `conda activate` 명령을 사용하여 `my_first`라는 가상 환경을 활성화시키려면 다음과 같은 명령을 준다. 가상 환경을 활성화시키면 프롬프트의 맨 앞이 `(my_first)`와 같이 바뀐다.
+
+``` .bash
+C:\Users\user>conda activate my_first
+
+(my_first) C:\Users\user>
+```
+
+이 상태에서 `python`이라는 명령을 주면 `my_first`에 설치된 버전 `3.10` 파이썬이 실행된다. 어떤 가상 환경에 패키지를 설치하려면 먼저 가상 환경을 활성화하고 설치한다. 가상 환경에서 빠져 나올 때는 `conda deactivate`라는 명령을 사용한다. 여기서는 가상 환경 이름을 사용하지 않는다. 다음 예를 보면, `my_first`가 활성화된 경우 `python` 명령은 파이썬 버전 3.10.0이 실행되고, `my_second`가 활성화된 경우는 파이썬 버전 3.9.7이 실행되는 것을 확인할 수 있다.
+
+``` .bash
+(my_first) C:\Users\user>python
+Python 3.10.0 | packaged by conda-forge | (default, Nov 10 2021, 13:20:59) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit()
+
+(my_first) C:\Users\user>conda deactivate
+
+C:\Users\user>conda activate my_second
+
+(my_second) C:\Users\user>python
+Python 3.9.7 (default, Sep 16 2021, 16:59:28) [MSC v.1916 64 bit (AMD64)] :: Anaconda, Inc. on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+가상 환경 삭제는 `conda env remove --name <가상환경이름>`을 사용하는데, 활성화된 가상 환경을 비활성화시킨 다음 삭제할 수 있다.
+
+``` .bash
+(my_first) C:\Users\user>conda deactivate
+C:\Users\user>conda env remove --name my_first
+```
+
+#### 콘다 가상 환경에 파이썬 패키지 설치
+
+앞에서 콘다 가상 환경을 만들고, 가상 환경 리스트를 확인하고, 활성화하거나 비활성화 시키고, 삭제하는 방법을 배웠다. 이제 이런 가상 환경에 파이썬 패키지를 설치해 보도록 하자.
+
+패키지를 설치할 때는 먼저 사용할 가상 환경을 활성화시킨다. 그 다음 `conda install` 또는 `pip install` 명령을 사용하여 패키지를 설치한다. 자주 사용되는 패키지인 경우 이 두 명령의 차이는 거의 없다. 차이가 있는 경우라면 웹 검색 등을 통해 관련 정보를 확인할 필요가 있다. `conda`로 설치되는 패키지 저장소와 `pip`로 저장되는 패키지 저장소는 다르다. `conda install` 명령은 Anaconda.org 사이트를 포함하여 채널(channel)이라고 불리는 여러 사이트들에서 패키지를 다운로드한다. 컴퓨터 `conda install` 명령을 줄 때 어떤 패키지 저장소를 찾을지 지정할 수도 있다. `pip install` 명령은 Python Package Index(PyPI)라고 하는 패키지 저장소에서 다운로드된다.
+
+`conda` 툴의 장점은 패키지들간의 의존 관계를 분석하여 서로 충돌하지 않게 패키지 버전을 선택해 준다는 것이다. 그래서 개인적으로 `pip`보다 `conda`를 선호한다.
+
+사용할 어떤 파이썬 패키지 설치법은 대부분 관련 문서에 설명되어 있다. 우리는 우선 콰드토 엔진으로 사용되는 주피터에 관심이 많다. `jupyter` 패키지는 주피터 시스템과 관련된 여러 패키지들의 집합으로, 다음과 같은 명령으로 관련 패키지들이 한꺼번에 설치된다.
+
+``` .bash
+(my_second) C:\Users\user>conda install jupyter
+```
+
+파이썬 데이터 과학에서 많이 사용되는 `NumPy`, `pandas`, `Matplotlib` 패키지도 설치해 보자. 패키지 이름들을 빈칸을 두고 나열한다.
+
+``` .bash
+(my_second) C:\Users\user>conda install numpy pandas matplotlib
+```
+
+`jupyter` 패키지에는 `ipython`이라는 명령으로 실행되는 IPython 셸이라는 일반적인 파이썬 레플보다 강력한 기능을 제공하는 셸이 포함되어 있다. 이 셸에 대한 내용은 뒤에서 설명될 것이다. 작동하는지 보기 위해서 `ipython`을 실행하고 설치된 패키지들을 임포트해 보자.
+
+``` .bash
+(my_second) C:\Users\user>ipython
+Python 3.9.7 (default, Sep 16 2021, 16:59:28) [MSC v.1916 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.31.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: import numpy as np
+
+In [2]: import pandas as pd
+
+In [3]: import matplotlib.pyplot as plt
+
+In [4]:
+```
+
+결과를 보면 모든 패키지가 특별한 문제없이 임포트되어 제대로 설치되어 있음을 확인할 수 있다. `exit()` 함수를 실행하여 `ipython`을 빠져 나간다.
+
+이제 주피터랩(JupyterLab)을 설치하자. `pip` 또는 `conda`로 설치할 수 있다.
+
+``` .bash
+(my_second) C:\Users\user>pip install jupyterlab
+```
+
+또는 다음과 같이 명령한다. 여기서 `-c conda-forge`는 `conda-forge`라는 채널을 통해서 다운로드하라는 의미이다.
+
+``` .bash
+(my_second) C:\Users\user>conda install -c conda-forge jupyterlab
+```
+
+주피터랩은 다음 절에서 설명한다.
+
+콘다는 여기서 설명한 것보다 훨씬 방대한 시스템으로 여러 가지 기능을 가지고 있다. 자세한 것을 원하는 경우라면 [콘다 문서 사이트](https://docs.conda.io/en/latest/)을 참고한다.
+
+## 주피터 노트북, 주피터랩
+
+### 주피터 노트북 
+
+주피터 노트북은 앞에서 설치한 `jupyter`라는 패키지 안에 통합되어 있다. 주피터 노트북을 실행하기 위해서는 `jupyter notebook`이라는 명령을 사용한다. 주피터 노트북과 주피터랩은 클라이언트-서버 방식으로 작동한다. 주피터 노트북을 실행하면 **현재 디텍러리를 기준으로** 주피터 노트북 서버가 실행된다. 사용자는 웹 브라우저를 통해서 이 서버에 연결한다(보통은 자동으로 연결되면서 열린다). 사용 순서는 다음과 같다.
+
+1.  가상 환경을 활성화한다(이 경우에는 `my_second`)
+2.  작업할 디렉터리로 이동한다(`sand2`)
+3.  커맨드라인에서 `jupyter notebook` 명령을 실행한다.
+
+명령을 실행하면 다음과 같은 로그가 커맨드라인에 출력되고, 웹 브라우저에서 주피터 노트북 대시보드가 열린다.
+
+``` .bash
+(my_second) C:\Users\user>mkdir sand2
+
+(my_second) C:\Users\user>cd sand2
+
+(my_second) C:\Users\user\sand>jupyter notebook
+[I 11:21:24.722 NotebookApp] Serving notebooks from local directory: C:\Users\user\sand2
+
+......생략
+
+        http://localhost:8888/?token=5a6edac850b37687c2f991456dc652d0ebaae9c173074d1d
+     or http://127.0.0.1:8888/?token=5a6edac850b37687c2f991456dc652d0ebaae9c173074d1d
+```
+
+여기서 몇 가지는 알아둘 내용이 있다.
+
+-   **현재의 디렉터리가 주피터 서버의 루트 디렉터리가 된다.** 즉 현재 디렉터리를 기준으로 파이썬이 실행된다. 따라서 가상 환경을 활성화시킨 다음 작업 디렉터리로 이동한 다음 `jupyter notebook` 명령을 실행하는 것이 좋다.
+
+-   노트북 작업을 하다가 이 서버를 중지시키려면 다시 커맨드 라인으로 돌아와 `Ctrl+C`를 한 번, 두 번(현재 실행되고 있는 모든 주피터 서버 중단) 입력한다.
+
+-   주피터 노트북은 기본적으로 로컬 호스트(`http://localhost`)의 `8888` 포트를 통해 서빙된다. 이미 포트가 사용되고 있으면 `8889` 등으로 넘어간다.
+
+-   주피터 노트북은 주피터 서버 입장에서 보면 하나의 클라이언트이다. 개별 클라이언트를 인식하는 것이 로그에서 출력되는 토큰(token)이다. 같은 컴퓨터에 있다고 해도 다른 브라우저로 `http://localhost:8888`에 접근한다면 다른 클라이언트로 인식을 하기 때문에 토큰 값을 입력해야 접근할 수 있다.
+
+명령행 또는 터미널에서 `jupyter notebook` 명령을 실행하면 시스템 드폴트 브라우저에서 다음과 같은 주피터 대시보드 화면이 열린다. 열리지 않으면 명령행에서 출력되는 주소를 복사하여 브라우저 주소창에 입력하면 된다. @fig-jupyter_dashboard 과 같이 브라우저에서 처음 열리는 창을 **주피터 대시보드**라고 한다.
+
+![주피터 대시보드](images/jupyter_dashboard.png){#fig-jupyter_dashboard fig-width="600"}
+
+이제 실제 노트북을 만들고 사용해 보자. @fig-new_jupyter_notebook 과 같이 주피터 대시보드 오른쪽에 보이는 **New** 버튼을 클릭한다. 내 컴퓨터에는 디폴트 커널 뿐만 아니라 R, TypeScript 등에 대한 커널도 설치되어 있어서 이렇게 보이는 것이고, 다른 커널을 추가로 설치하지 않은 경우에는 `Python 3(ipykernel)`만 보일 것이다. 이것을 더블클릭한다.
+
+![주피터 대시보드에서 New 버튼을 클릭한다.](images/new_jupyter_notebook.png){#fig-new_jupyter_notebook fig-width="600"}
+
+이제 새로운 노트북 파일 생성된다. 처음 노트북을 사용하는 독자라면 새로운 인터페이스에 익숙해질 필요가 있다. 주요 인터페이스는 다음과 같다.
+
+1.  주피터 노트북은 커널을 통해 계산이 실행된다.
+2.  입력은 셀(cell)에 한다.
+3.  셀의 종류에는 코드를 입력하는 코드 셀, 마크다운 텍스트를 입력하는 마크다운 셀, 메타 데이터를 입력하는 Raw 셀이 있다. 그림과 같이 메뉴에서 타입을 변경할 수 있다.
+4.  파일 이름을 그림과 같이 파일 이름을 클릭하여 정한다. 노트북 파일의 확장자는 `.ipynb`이다. 아이파이썬 노트북이라는 뜻이다. 이 파일은 일반 텍스트(plain text) 포맷으로 되어 있지만, JSON 형태로 되어 있다.
+
+![주피터 노트북 인터페이스](images/nb_interface.png){#fig-nb_interface}
+
+
+이제 코드를 실행해 보자. 코드 셀에 코드를 입력하고 `Shift+Enter`를 클릭한다. 그러면 결과가 셀 아래에 출력된다. 이 과정은 다음과 같은 절차에 따라 진행된다.
+
+1.  코드를 주피터 서버로 보내고, 서버는 커널로 이 코드를 보낸다.
+
+2.  커널을 코드를 실행하고, 서버로 결과를 보내고, 서버는 노트북 인터페이스로 그 결과를 보낸다.
+
+3.  노트북은 그 결과를 셀 아래 출력한다.
+
+4.  실행을 마친 코드 셀 앞에서는 `In []`에서 번호가 입력된다.
+
+5.  `Shift+Enter`로 실행할 경우 실행을 마치고 아래 셀이 자동으로 추가된다.
+
+![셀에 코드를 입력하고 Shift+Enter로 실행](images/hello_jupyter.png){#fig-hello_jupyter fig-width="600"}
+
+### 주피터랩
+
+이제 주피터랩(JupyterLab)을 실행해 보자. 주피터랩은 `jupyter lab` 명령으로 실행한다. 사용자 인터페이스만 다를 뿐 작동 방식은 주피터 노트북과 거의 차이가 없다.
+
+``` .bash
+(my_second) C:\Users\user>jupyter lab
+```
+
+주피터 서버가 실행되고 커맨드라인에 로그가 출력되고, [@fig-lab_launcher]과 같이 웹 브라우저에서 주피터랩이 실행된다. 이것을 주피터랩 론처라고 하는데, 왼쪽 폴더 모양의 탭을 클릭하고 **+** 버튼을 클릭하면 이 화면이 보인다. 여기서 사용할 커널을 더블클릭하면 노트북이 새로 생성된다.
+
+![주피터랩 론처](images/lab_launcher.png){#fig-lab_launcher}
+
+코드나 텍스트를 입력하고 사용하는 방법은 주피터 노트북과 같다. 그렇지만 주피터랩은 모던 통합개발환경과 비슷하게 사용자가 편의 기능들이 많이 들어 있다. 드래그 앤 드롭 기능을 사용한 셀 위치 이동, 여러 노트북 파일을 열어서 작업할 수 있는 인터페이스, 터미널 사용 등 다양한 기능들이 들어가 있다. 이 내용은 뒤에서 다시 자세하게 설명된다.
+
+## VS Code와 주피터 익스텐션 {#sec-vscode-extension}
+
+비쥬얼 스튜디오 코드(이하 VS Code)는 마이크로소프트사에서 만들어 오픈소스로 배포하는 텍스트 에디터로, 최근 많은 데이터 과학자들에게 인기가 높다. RStudio 통합개발환경, 주피터 노트북/주피터랩도 일종의 텍스트 에디터이기는 하지만 일반적인 텍스트 에디터보다 불편한 것이 사실이다.
+
+RStudio 경우는 여러 파일을 동시에 열어 놓고 작업하기 어렵고, 한글 입력이 잘 안되는 경우가 종종 있어 불편하다. 주피터 노트북/주피터랩은 웹 브라우저에서 작업해야 하기 때문에 일반 텍스트 에디터보다 답답하다. 
+
+마이크로 소프트사에세 배포하는 VS Code는 전문 텍스트 에디터로서 갖추야 할 기능들을 모두 갖추고 있어 편리하다. 컴퓨테이셔널 노트북의 관점에서 보면, 파이썬 커널이나 주피터 노트북의 기능을 자체적으로 거의 완벽하게 지원하기 때문에 그 어떤 텍스트 에디터보다도 편리하다. 개인적으로 요즘에 글쓰는 작업은 거의 이 VS Code를 사용하고 있다. 정말 놀라운 도구이다.
+
+[![VS Code 로고(클릭해서 사이트로 이동)](images/vscode.png){#fig-vs-code width="200"}](https://code.visualstudio.com)
+
+
+VS Code 환경 설치 과정은 다음과 같다.
+
+1. [VS Code 사이트](https://code.visualstudio.com)에서 다운로드해서 설치한다. VS code를 커맨드라인에서 사용할 수 있도록 `code`라는 명령을 제공하는데, 윈도우에서 이 명령을 사용할 수 있게 하려면 디폴트로 설정되어 있는 경로(PATH) 추가를 그대로 유지하여 설치한다. 
+
+    ![원도우에서 설치할 때 경로 포함 ](images/vscode_path.png){#fig-vscode-path}
+
+1. VS Code 사이트나 블로그에 VS Code 사용법은 잘 소개되어 있어 추가로 설명하지는 않는다.
+
+1. 맥오에스에서도 커맨드라인에서 `code` 명령을 사용할 수 있게 하려면 VS Code를 설치하고 명령 팔레트(`Cmd+Shift+P`)를 실행하여 "shell command"라고 입력하면 `Shell Command: Install 'code' command in PATH command`라는 명령이 검색된다. 이것을 클릭하면 된다.
+
+
+이렇게 설치하고 나면 커맨드라인에서 작업 디렉터리로 이동하여 현재 디텍터리를 기준으로 VS Code를 실행할 때는  `code .` 명령을 실행할 수 있다.
+
+``` .bash
+> code .
+```
+
+마이크로소프트사가 최근 파이썬 언어 창시자인 귀도 반 로숨을 영입하는 등 파이썬 생태계를 적극 지원하고 있다. 이런 경향을 반영하여 VS Code에서 파이썬 사용과 관련된 기능들을 점차 다양해지고 있고 강력해지고 있다. VS Code 문서인 "Python in Visual Studio Code"^[<https://code.visualstudio.com/docs/languages/python>]을 보고 파이썬, 주피터 노트북을 활용할 수 있도록 VS Code 확장 기능 등을 설치한다.
+
+확장툴은 @fig-vs_extension 과 같이 메뉴을 클릭해서 필요한 확장툴을 선택한다.
+
+![VS Code 확장툴 추가하기](images/extension.png){#fig-vs_extension fig-align="center" width="50%"}
+
+R, 파이썬, 주피터, 콰르토 사용과 관련된 주요 확장툴은 다음과 같다. @fig-vs_extension 에서처럼 인터넷이 연결된 경우 빈칸에 이름을 입력하게 쉽게 검색된다.
+
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+- [Jupyter Notebook Renderers](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter-renderers)
+- [R](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r)
+- [Quarto](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
+
+VS Code에 여러 가지 기능이 있지만 노트북과 관련된 2가지만 간단하게 소개하고자 한다.
+
+명령 팔레트("Ctrl+Shift+P(윈도우), Cmd+Shift+P"(맥오에스))에서 "Create New Jupyter..."을 입력하면 "Jupyter:Create New Jupyter Notebook" 명령이 검색된다. 클릭하면 새로운 노트북 파일이 만들어진다. 
+
+생성된 노트북에서 오른쪽에 "Select Kernel"을 클릭하면 현재 컴퓨터에서 설치되어 사용가능한 여러 종류의 커널이 나열된다. 시스템 디폴트부터 만들어진 콘다 가상 환경, 기타 사용자가 직접 설치한 커널이 나열된다. 사용할 커널을 선택하여 바로 사용할 수 있다.
+
+![VS Code에서 커널 선택하기](images/vscode_kernel_selection.png){#fig-kernel-select}
+
+VS Code에서 `hello.py`와 같이 파이썬 스크립트 작업을 하다가 `#%%`이라고 입력하고 엔터를 치면 파이썬 코드를 입력하고 `Shift+Enter` 키를 쳐서 실행하면 주피터 노트북이 자동으로 실행된다. 의외로 파이썬 코드 작업을 할 때 편리하다. 
+
+![파이썬 스크립트 파일 안에서 `#%%`를 입력하면 주피터 노트북이 열린다.](images/sharp_percent.png){#fig-sharp-percent fig-align="center"}
+
+더 자세한 내용들은 [Python in Visual Studio Code](https://code.visualstudio.com/docs/languages/python)을 참고한다.
+
+## 레이텍(LaTeX) 설치와 사용 {#sec-latex-setting}
+
+레이텍({{< latex >}})은 아주 오래된 조판 도구이고 배우기 까다롭지만 과학기술 저술용으로 늘 사용되는 유용한 도구이다. R 마크다운/니터, 주피터 노트북/주피터랩을 비롯하여 콰르토에서도 문서를 PDF로 렌더링하기 위해서는 레이텍이 필요하기 때문에 이것을 컴퓨터에 설치할 필요가 있다. 만약 HTML, 워드와 같은 포맷으로만 문서를 렌더링하고자 한다면 굳이 설치할 필요는 없다. 
+
+처음 사용자들은 요즈음에는 일반 프로그램에 PDF 인쇄 기능이 대부분 있기 때문에 이것을 사용하면 되지 않느냐고 질문할 수 있는데, 레이텍은 훨씬 더 들어간 소프트웨어이라고 일단 이야기하고 싶다.
+
+레이텍 설치에 대해서는 "KTUG 한글 TeX사용자 그룹"^[<http://www.ktug.org/xe/>]을 보고 따라 하면 된다. 
+
+![KTUG 한글 TeX사용자 그룹](images/ktug.png){#fig-ktug fig-align="center"}
+
+[@fig-ktug]에서 설치를 위한 링크를 표시해 놓았다. 보통 윈도우인 경우에는 **TeXLive 배포판**을, 맥오에스에서는 **MacTeX**를 설치하여 사용한다. 전체 크기가 기가 단위로 크기 때문에 설치에 시간이 걸리고, 컴퓨터에 충분한 공간이 있는지 확인하고 설치한다.
+
+레이텍이 뭔지 알고 싶은 경우에는 [@fig-ktug]의 화살표로 표시된 부분에서 "권장 문서(lshort-ko)"로 시작한다. "The Not So Short Introduction to LaTeX2e"라고 하는 문서의 번역판으로 레이텍 커뮤니티에서는 이 문서를 "lshort"라고 부른다.
+
+R 패키지로 제공되는 `tinytex`을 사용하여 설치할 수도 있지만, 한글 등을 원활하게 사용하기 위해서는 시스템에 레이텍을 설치할 것을 권한다.
+
+한글 사용과 관련해서는 "케이오텍" 또는 "코리언 텍"이고 불리는 `ko.TeX`에 대해서 알아야 한다. 구글에서 [ko.TeX](http://project.ktug.org/ko.TeX/)을 입력하여 검색하면 관련 페이지를 쉽게 검색할 수 있다. 그리고 레이텍이 설치한 후라면 커맨드라인에서 `texdoc kotex`라고 명령하면 케이오텍 설명서를 바로 읽을 수 있다. 
+
+레이텍의 세계는 방대하여 사실 소개하는 글을 쓰기조차 쉽지 않지만, 콰르토를 사용하여 한글이 들어간 PDF 문서는 만들 수 있어야 하기에 간략하게 꼭 알아야할 내용들만 간추려 설명한다. 좀 더 자세하게 알고 싶으면 뉴욕대학교에서 소개하는 레이텍 사용법을 설명한 사이트를 참고한다^[<https://guides.nyu.edu/LaTeX>].
+
+### 처음 사용하는 레이텍 
+
+레이텍을 레이텍 자체로 사용하는 방법을 먼저 배워볼 필요가 있다. 
+
+원도우 시스템이라면 [@fig-texworks-editor]과 같이 TeXworks 에디터를 실행시킨다. 맥오에스에서 MacTeX를 설치했다면 TeXShop 앱을 이용한다.
+
+![TeXworks 에디터](images/texworks_editor.png){#fig-texworks-editor}
+
+
+이것은 일종의 텍스트 에디터이다. 여기에 다음과 같이 입력해 보자.
+
+```.latex
+\documentclass{article}
+\begin{document}
+Hello, \LaTeX!
+\end{document}
+```
+
+그런 다음 파일을 `hello.tex`이라고 저장한다. 중간 파일들이 여러 개 만들어지기 때문에 연습할 것이라면 새로운 폴더를 만들어 저장한다. 레이텍 파일의 확장자는 `.tex`을 사용한다.
+
+저장한 다음 [@fig-hello-latex]과 같이 편집창에서 녹색 버튼을 클릭하면 문서가 렌더링되고 그 결과가 PDF 창에서 열린다.
+
+![처음 시작하는 LaTeX](images/hello_latex.png){#fig-hello-latex}
+
+`\documentclass{article}`이라고 하는 것은 만들려고 하는 문서가 `article` 임을 지정한다. 이런 클래스는 사전에 정의되어 있고 `article`, `report`, `book`, `letter` 등이 있다. 
+
+문서에 들어갈 내용은 `\begin{document}`에서 `\end{document}` 사이에 놓인다. 본문에서 `Hello,`는 그대로 입력했는데 `\LaTeX`은 백슬래쉬를 쓰고 입력했다. 이것은 레이텍 명령어로 레이텍을 제대로 출력하기 위한 명령이다. 결과를 보면 독특하게 단어가 출력된 것을 볼 수 있다. 
+
+이제 저자명, 제목을 지정하고, 이것을 본문 안에서 넣어서 출력해 보자. 다음과 같이 입력한다. 참고로 아직 한글을 넣으면 문서가 렌더링되지 않기 때문에 영문으로 입력한다. 
+
+```.latex
+\documentclass{article}
+\author{sbko}
+\title{Just Start the \LaTeX}
+
+\begin{document}
+\maketitle
+Hello, \LaTeX!
+\end{document}
+```
+
+다시 저장하고 녹색 버튼을 클릭한다. 그러면 [@fig-author-title]과 같이 렌더링된다.
+
+![저자명과 제목을 추가](images/author_title.png){#fig-author-title}
+
+제목과 저자명을 `\documentclass{article}`과 `\begiin{document}` 사이에 `\title{}`, `\author{}` 명령을 사용하여 지정하였다. 이 부분, 그러니까 `\documentclass{article}`과 `\begin{document}` 사이를 레이텍을 **프리앰블(preamble)**이라 부른다. 이 프리앰블은 문서와 관련된 메타 정보를 넣는 곳이다. 
+
+이렇게 입력된 제목과 저장명을 실제로 표시하기 위해서는 `\begin{document}` 다음에 `\maketitle`이라는 명령을 주어야 한다. 프리앰블에서 값을 지정했어도 이 명령이 없으면 이 내용들이 출력되지 않는다. `\begin{document}`와 `\end{document}` 사이를 레이텍에서는 바디(body)라고 한다. 
+
+이 바디 안에 내용을 추가해 보자. 절(section)을 추가한다. 절은 `\section{}`이라는 명령을 사용한다. 다음과 같이 입력한다.
+
+```.latex
+\documentclass{article}
+\author{sbko}
+\title{Just Start the \LaTeX}
+
+\begin{document}
+\maketitle
+
+\section{Hello}
+Hello, \LaTeX!
+
+\section{Introduction}
+
+\TeX is a typesetting computer program created by Donald Knuth.
+
+\end{document}
+```
+
+다시 저장하고 렌더링하면 [@fig-add-section]과 같이 렌더링된다.
+
+![섹션을 추가함](images/add_section.png){#fig-add-section}
+
+레이텍은 섹션, 그래프, 표 등이 추가될 때마다 이것을 카운팅하고 순서대로 자동으로 번호를 부여한다. 목차를 만들려면 `\maketitle` 명령 다음에 목차를 만들라는 `\tableofcontents`라는 명령을 준다.
+
+```.latex
+......
+\maketitle
+\tableofcontents
+......
+```
+
+문서를 렌더링하면, [@fig-add-toc]과 같이 목차가 추가된다.
+
+![목차를 추가](images/add_toc.png){#fig-add-toc}
+
+이제 레이텍을 시작했다. 그런 다음 앞에 "lshort-ko" 문서를 읽어 보면서 내용을 입력하고 문서를 렌더링하면서 연습할 필요가 있다.
+
+그 다음은 웹에서 "LATEX2e: An unofficial reference manual"을 검색하면 매뉴얼을 쉽게 찾을 수 있을 것이다. 이 문서를 보고 레이텍 사용법을 심화시킨다. 레이텍 엔진(engines)에 대한 개념도 해당 문서에 나와 있어서 추가로 설명하지 않는다.
+
+### 한글 레이텍 사용하기: 케이오텍 사용하기 
+
+이제 한글을 넣은 레이텍 문서를 만들어 보려고 한다. 한글을 사용하려면 케이오텍 패키지를 프리앰블에 `\usepackage{kotex}` 명령을 사용하여 포함시킨다. 그런 다음 한글 내용을 입력해 보자.
+
+``` .latex
+\documentclass{article}
+\usepackage{kotex}
+\author{sbko}
+\title{Just Start the \LaTeX}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Hello}
+
+Hello, \LaTeX!
+
+\section{Introduction}
+
+\TeX is a typesetting computer program created by Donald Knuth.
+
+
+\section{한글 내용}
+
+안녕, 레이텍!
+
+\end{document}
+```
+
+저장하고 렌더링하면 다음과 같이 된다.
+
+![케이오텍 패키지를 넣고 한글 포함](images/add_kotex.png){#fig-add-kotex}
+
+지금까지 우리는 pdfLaTeX 엔진을 사용했다. 콰르토에서는 XeLaTeX 엔진을 사용하게 되는데, pdfLaTeX을 사용할 때는 레이텍 자체 폰트를 사용하는 반면 XeLaTeX에서는 시스템에 설치된 폰트까지 사용할 수 있다는 점이 가장 큰 차이이다.
+
+그래서 이번에는 컴퓨터에 설치된 폰트를 사용하여, XeLaTeX 엔진을 사용하여 문서를 렌더링해 보려고 한다. 컴퓨터에 설치된 폰트를 부르는 명령은 앞에서 소개한 `ko.TeX` 매뉴얼에 나와 있는데, 기본적으로 `\setmainfont{}`, `\setmainhangulfont{}`를 사용한다. 시스템 폰트를 부르는 방법에 대한 체계적인 설명은 "KTUG 공주대학교 문서작성 워크숍 2019"에서 소개된 [김강수 선생님의 발표 자료](http://wiki.ktug.org/wiki/wiki.php/LaTeXWorkshop/2019)를 참고하기 바란다.
+
+![<http://wiki.ktug.org/wiki/wiki.php/LaTeXWorkshop/2019>](images/using_font.png){#fig-using-fonts}
+
+간단히 소개하면 원도우 검색창에 "글꼴"을 입력한 다음 사용할 폰트 이름을 찾는다. 내 컴퓨터에서 나눔손글씨 붓 글꼴을 설치하고 이 폰트의 설명을 보면 폰트가 어떤 파일로 저장되었는지 확인한다. 확장자까지 모두 사용한다. 같은 방법으로 나눔고딕 폰트 파일도 확인한다.
+
+![글꼴 정보 확인](images/brush_font.png)
+그래서 `\setmainfont{NANUMGOTHIC.TTF}`, `\setmainhangulfont{NANUMBRUSH.TTF}` 명령을 `\usepackage{kotex}` 아래에 추가했다.
+
+그런 다음 편집창 녹색 버튼 오른쪽 드롭다운 메뉴를 클릭하여 **XeLaTeX**을 선택한 다음 녹색 버튼을 클릭하여 문서를 렌더링했다.
+
+
+![한글 폰트를 부르고 XeLaTeX으로 렌더링함](images/hangul_xelatex.png){#fig-hangul-xelatex}
+
+결과를 관찰해 보면 한글이 아닌 것은 `\setmainfont{}`에서 지정된 나눔고딕으로 출력되어 있고, 한글은 `\setmainhangulfont{}`에서 지정한 "나눔손글씨 붓" 글꼴로 되어 있는 것을 확인할 수 있다. `\setmainfont{}`는 문서의 주요 폰트를 지정하고, `\setmainhangulfont{}` 명령을 한글 폰트를 특별히 지정한다는 것을 알 수 있다.
+
+맥오에스에서는 한글을 사용하는 경우 폰트 관리자를 보면 다음과 같다.
+
+![맥 서체 정보](images/mac_font.png){#fig-mac-fonts}
+
+[@fig-mac-fonts]에서 이름의 종류가 "PostScript 이름", "전체 이름"(full name), "서체 목록"(family)인데, XeLaTeX 엔진이 폰트를 찾을 때 "전체 이름" -> "서체 목록" -> "PostScript 이름"을 순서로 찾기 때문에, 이 가운데 이름을 찾아서 지정하면 된다. 여기서는 "전체 이름"을 사용해 보려고 한다.
+
+![맥오에서 한글 폰트 부르기](images/mac_xelatex.png){#fig-mac-xelatex}
+
+### 콰르토에서 PDF 문서 생성
+
+뒤에서 콰르토에서 PDF 문서를 만드는 방법을 자세하게 소개한다. 콰르토에서는 팬독 마크다운으로 글을 쓰고, PDF 문서로 변환할 때는 이 마크다운 문서를 `.tex` 문서로 변환시키고 난 다음 보통은 `xelatex` 엔진을 사용하여 PDF를 생성시킨다.
+
+위에서 오리지널 레이텍에서는 자체의 명령을 사용하여 패키지나 폰트를 설정하였지만, 콰르토에서는 이것을 YAML 옵션으로 정한다. 중요한 것은 레이텍 문서의 포맷을 머리 속에 그리는 것이다. `\maketitle`이나 `\tableofcontents` 같은 명령을 굳이 신경쓸 필요가 없다. 팬독으로 처리하면 간단히 해결된다. 
+
+## 콰르토 설치
+
+콰르토를 설치하는 것은 아주 간단하다. [콰르토 홈페이지](https://quarto.org)에 가서 콰르토를 다운로드하고 설치하면 된다. 콰르토는 커맨드라인(명령행) 툴이다.
+
+설치하고 나서 윈도우 명령 프롬프트나 맥 터미널에서 설치가 제대로 되었는지 확인한다.
+
+``` .bash
+C:\Users\user>quarto --version
+0.9.34
+C:\Users\user>quarto check jupyter
+
+[>] Checking Python 3 installation....OK
+      Version: 3.10.1
+      Path: C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe
+      Jupyter: 4.9.1
+      Kernels: ir, jslab, tslab, python3
+
+[>] Checking Jupyter engine render....OK
+
+
+C:\Users\user>quarto check knitr
+
+[>] Checking R installation...........OK
+      Version: 4.1.2
+      Path: C:/PROGRA~1/R/R-41~1.2
+      LibPaths:
+        - C:/Users/user/Documents/R/win-library/4.1
+        - C:/Program Files/R/R-4.1.2/library
+      rmarkdown: 2.11
+
+[>] Checking Knitr engine render......OK
+```
+
+즉 `quarto --version`으로 버전을 확인하고, `quarto check jupyter`로 주피터 엔진을 체크하고 `quarto check knitr`로 니터 엔진을 체크한다. 콰르토에는 팬독(pandoc)이 내장되어 있다. `quarto pandoc --version` 명령으로 그 버전을 확인할 수 있다.
+
+## 정리 
+
+이 장에서 우리는 콰르토 사용에 필요한 R, 파이썬 프로그래밍 언어를 설치하였고 RStudio, Jupyter, VS Code와 같은 텍스트 에디터도 설치했다. 또한 PDF 문서를 만들 때 필요한 레이텍을 설치하고 간단하게 그 사용법에 대해서도 설명했다. 그리고 이와 같은 도구들을 하나로 모아서 사용할 수 있게 해 주는 콰르토도 설치했다.
+
+
+
+
