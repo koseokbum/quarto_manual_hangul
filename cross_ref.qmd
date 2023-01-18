@@ -155,9 +155,21 @@ p2
 표에 대한 상호 참조를 만들 때도 위 그램에서 설명한 원칙이 그대로 적용된다. 단지 팬독 마크다운에서`#tbl-`, 코드 불록이 생성하는 표에서는 `tbl-`로 시작되는 접두사를 사용하는 점이 다를 분이다. 구체적인 내용은 [콰르토 문서](https://quarto.org/docs/authoring/cross-references.html#tables)를 참고한다.
 
 
+## 방정식, 수식에 대한 참조 
+
+콰르토에서 블록 형태의 수식은 `$$`로 시작하여 `$$` 구역을 만들고 여기에 레이텍 수식을 입력하는 방법으로 만든다. 이런 수식에 대한 참조를 만들기 위한 레이블은 `#eq-`로 시작한다. 다음은 콰르토 문서에 나오는 예제이다. 끝에 `{#eq-black-scholes}`을 잘 관찰하기 바란다. 이것을 참조할 때는 `[@eq-black-scholes]`라는 문법을 사용한다.
 
 
-Black-Scholes (@eq-black-scholes) is a mathematical model that seeks to explain the behavior of financial derivatives, most commonly options:
+``` markdown
+$$
+\frac{\partial \mathrm C}{ \partial \mathrm t } + \frac{1}{2}\sigma^{2} \mathrm S^{2}
+\frac{\partial^{2} \mathrm C}{\partial \mathrm C^2}
+  + \mathrm r \mathrm S \frac{\partial \mathrm C}{\partial \mathrm S}\ =
+  \mathrm r \mathrm C 
+$$ {#eq-black-scholes}
+```
+
+이것은 다음과 같이 렌러링된다.
 
 $$
 \frac{\partial \mathrm C}{ \partial \mathrm t } + \frac{1}{2}\sigma^{2} \mathrm S^{2}
@@ -166,5 +178,23 @@ $$
   \mathrm r \mathrm C 
 $$ {#eq-black-scholes}
 
+수식 [@eq-black-scholes]을 보면...
 
-\listoffigures
+## 장, 절에 대한 참조 
+
+장, 절에 대한 참조는 다음과 같이 장, 절 헤더에서 `{}`를 사용한 속성으로 지정하는데, 레이블은 `#sec-`으로 시작한다.
+
+``` markdown
+## Introduction {#sec-introduction}
+
+See [@sec-introduction] for additional context.
+```
+
+## 기타:  코드 리스트, 정리 등 
+
+코드 리스트, 정리(theorum) 등에 관한 것은 [콰르토 문서](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs)를 참고한다. 원리는 거의 비슷하다.
+
+## YAML 헤더에서 참조에 대한 커스터마이징: `crossref` 필드 
+
+
+
