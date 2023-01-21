@@ -28,6 +28,7 @@ book:
         - content_figure.qmd
         - content_table.qmd
         - cross_ref.qmd
+        - latex_math.qmd
     - part: engine.qmd
       chapters:
         - knitr_engine.qmd

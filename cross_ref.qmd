@@ -196,5 +196,43 @@ See [@sec-introduction] for additional context.
 
 ## YAML 헤더에서 참조에 대한 커스터마이징: `crossref` 필드 
 
+콰르토 문서에 사용되는 상호 참조를 커스터마이징 할 때는 `crossref`라는 필드를 사용한다. 여기에서 여러 옵션들을 지정할 수 있다. 
+
+### 순서 매기기 
+
+순서를 일반적인 아라비아 숫자가 아니라 로마자 또는 알파벳 등으로 지정할 수 있는데 이 경우에는 `crossref` 서브 필드로 `labels`라는 필드에 `arabic`, `roman`(I, II, III, IV, ...), `roman i`(i, ii, iii, ...), `alpha a`(a, b, c, ...), `alpha A`(A, B, C, ...) 등으로 값을 지정한다. 만약 하부 그림이나 하부 표가 있는 경우에도 그 체계를 지정할 수 있는데, 이 경우에는 `subref-labels`라는 필도에서 이 값들을 지정한다.
+
+``` markdown
+---
+title: "붓꽃을 대신할 팔머 펭귄 데이터"
+subtitle: "De-iris 운동"
+author:
+  name: sbko
+crossref:
+  labels: alpha A
+---
+```
+
+이렇게 하면 알파벳 A(대문자)부터 번호를 매겨진다.
+
+앞에서 `language` 필드와 `lang` 필드에서 `Figure 1`과 같이 부여되는 것을 한글 등으로 표시하는 방법을 설명했는데, `crossref`의 서브 필드에서도 `fig-title`, `tbl-title`이라는 필드를 사용하여 지정할 수 있고, 그리고 연결되는 기호를 `title-delim`이라는 필도로 지정할 수 있다.
+
+
+``` markdown
+---
+title: "붓꽃을 대신할 팔머 펭귄 데이터"
+subtitle: "De-iris 운동"
+author:
+  name: sbko
+lang: kr
+crossref:
+  labels: alpha A
+  title-delim: "."
+---
+```
+
+이렇게 하면 그림 [-@fig-delim]의 캡션과 같이 번호가 부여된다.
+
+![레이블과 타이틀을 구분하는 기호가 표시되는 예](images/fig_delim.png){#fig-delim}
 
 
