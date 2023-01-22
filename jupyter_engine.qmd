@@ -497,6 +497,11 @@ display(my_video)
 
 ## VS Code에서 주피터 노트북 사용하기 
 
+[-@sec-vscode-extension] 절에서 VS Code를 설치하는 방법을 설명했다. VS Codoe는 익스텐션을 사용하여 주피터 노트북을 완벽하게 지원한다. VS Code에서의 파이썬 사용에 관한 내용은 [Python in Visual Studio Code](https://code.visualstudio.com/docs/languages/python#_jupyter-notebooks)에 잘 설명되어 있으며 이 설명을 자세히 읽어볼 필요가 있다. 또한 콰트토를 잘 활용하기 위해서는 [콰르토 익스텐센](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)도 설치하고, 사이트에서 설명법을 숙지할 것을 권한다.
+
+
 ## 주피터 노트북/주피터랩에서 콰르토 사용하기 
+
+주피터 노트북/주피터랩에서 콰르토를 사용하는 방법은 [-@sec-using-jupyternb] 절에 설명되어 있다.
 
 ## 참고문헌

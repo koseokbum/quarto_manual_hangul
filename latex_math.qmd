@@ -584,7 +584,7 @@ $$
 
 이 명령에 대한 예제는 [Spacing in math mode](https://www.overleaf.com/learn/latex/Spacing_in_math_mode)을 참고한다.
 
-## 복수의 행에 걸친 수식 작성법 
+## 복수의 행에 걸친 수식
 
 레이텍을 가지고 여러 행에 걸친 수식을 작성할 수도 있다. 여러 가지 방법이 있는데, 우선 단순한 `align` 환경을 사용한 방법이다. 
 
